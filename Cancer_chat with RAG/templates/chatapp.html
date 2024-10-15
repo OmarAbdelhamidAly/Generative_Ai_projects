@@ -1,0 +1,41 @@
+<!-- chatapp.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Cancer Diagnosis Chat</h1>
+        <form method="POST" class="form-inline">
+            <div class="form-group mb-2">
+                <input type="text" name="user_prompt" class="form-control" placeholder="Ask a question..." required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+        
+        {% if answer %}
+            <h4>Response:</h4>
+            <div class="alert alert-info">{{ answer }}</div>
+        {% endif %}
+        
+        {% if context %}
+            <h4>Context:</h4>
+            <div class="alert alert-secondary">{{ context }}</div>
+        {% endif %}
+
+        <h4>History:</h4>
+        <ul class="list-group">
+            {% for entry in history %}
+                <li class="list-group-item">
+                    <strong>Q:</strong> {{ entry.prompt }}<br>
+                    <strong>A:</strong> {{ entry.answer }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
