@@ -1,5 +1,4 @@
-markdown
-Copy code
+
 # Generative AI Projects
 
 Welcome to my repository of Generative AI projects! This collection showcases various applications and implementations of generative AI techniques. The projects leverage advanced models and frameworks to tackle real-world problems and demonstrate the potential of AI in different domains.
