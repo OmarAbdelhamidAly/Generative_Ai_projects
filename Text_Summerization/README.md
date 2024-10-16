@@ -1,4 +1,4 @@
-LangChain & ChatGroq Flask Application: Summarize YouTube and Website Content
+<h1>LangChain & ChatGroq Flask Application: Summarize YouTube and Website Content<h1>
 Overview
 <p>This project is a Flask-based web application that allows users to summarize content from a YouTube video or a webpage. It uses the <b>ChatGroq API</b> to generate high-quality summaries by leveraging the <b>LangChain</b> framework for prompt creation and document processing. The application takes a YouTube or website URL, loads the content, and returns a concise summary of around 300 words.</p>
 Features
