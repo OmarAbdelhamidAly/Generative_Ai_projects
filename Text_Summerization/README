@@ -1,0 +1,57 @@
+LangChain & ChatGroq Flask Application: Summarize YouTube and Website Content
+Overview
+This project is a Flask-based web application that allows users to summarize content from a YouTube video or a webpage. It uses the ChatGroq API to generate high-quality summaries by leveraging the LangChain framework for prompt creation and document processing. The application takes a YouTube or website URL, loads the content, and returns a concise summary in around 300 words.
+
+Features
+Summarize content from YouTube videos.
+Summarize content from webpages.
+Supports different content loaders for web and video.
+Uses the ChatGroq model Gemma-7b-It to generate accurate and contextual summaries.
+User-friendly web interface with Flask.
+Technologies Used
+Flask: For the web application framework, handling requests, and rendering the HTML templates.
+LangChain: To manage LLM-based operations like loading documents and structuring prompts for summarization.
+ChatGroq: For generating high-quality summaries using the Gemma-7b-It model.
+YoutubeLoader: To extract content from YouTube videos.
+UnstructuredURLLoader: To load and process text from a webpage.
+Validators: For URL validation to ensure proper input handling.
+How It Works
+User Input: The user provides the following inputs:
+
+Groq API Key: Required to connect to the ChatGroq service.
+URL: Either a YouTube video link or a webpage URL to summarize.
+Content Loading:
+
+If the URL is from YouTube, the app uses YoutubeLoader to extract and load the video’s content.
+For other URLs (webpages), UnstructuredURLLoader is used to extract text data from the page.
+Summarization: The extracted content is passed through the Gemma-7b-It model via ChatGroq API using a LangChain prompt. The prompt instructs the model to summarize the content in 300 words.
+
+Display Summary: The generated summary is displayed on the same page below the form.
+
+Setup Instructions
+Clone the Repository:
+
+bash
+Copy code
+git clone https://github.com/YourUsername/Flask-Summarizer.git
+cd Flask-Summarizer
+Install Dependencies: Install the required Python packages using pip:
+
+bash
+Copy code
+pip install -r requirements.txt
+Configure the Application:
+
+API Key: You will need a valid ChatGroq API Key. This key should be provided in the input form when using the application.
+Run the Application: Start the Flask application by running:
+
+bash
+Copy code
+python app.py
+Access the Application: Open your browser and go to http://127.0.0.1:5000/ to access the summarization tool.
+
+Usage
+Go to the homepage at http://127.0.0.1:5000/.
+Enter your Groq API Key and the URL of a YouTube video or webpage.
+Click Submit.
+The app will process the content, and within a few moments, display the summarized text below the form.
