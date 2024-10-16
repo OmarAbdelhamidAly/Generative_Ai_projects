@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Agent Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.1em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        h2 {
+            color: #007bff;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 1em;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .query-response {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>SQL Agent Chat</h1>
+
+    <div class="container">
+        <!-- Form for user to input query -->
+        <form method="POST" action="/chat">
+            <label for="user_query">Enter your query:</label>
+            <input type="text" id="user_query" name="user_query" placeholder="Type your query here..." required>
+            <input type="submit" value="Submit">
+        </form>
+
+        <!-- Display query and agent response if available -->
+        <div class="query-response">
+            {% if query %}
+                <h2>Your Query:</h2>
+                <p>{{ query }}</p>
+            {% endif %}
+
+            {% if response %}
+                <h2>Response from Agent:</h2>
+                <p>{{ response }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
