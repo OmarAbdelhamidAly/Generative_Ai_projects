@@ -3,53 +3,6 @@ from transformers import AutoTokenizer, TFAutoModel
 import tensorflow as tf
 import numpy as np
 
-# # Define the Emotion Classifier
-# class EmotionClassifier:
-#     def __init__(self, model_dir, num_classes=6):
-#         # Load BERT model and tokenizer
-#         self.bert_model = TFAutoModel.from_pretrained(model_dir)
-#         self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-#         self.num_classes = num_classes
-#         self.classifier = self._build_classifier()
-
-#     def _build_classifier(self):
-#         # Create a classification layer on top of the loaded BERT model
-#         input_ids = tf.keras.layers.Input(shape=(None,), dtype=tf.int32, name='input_ids')
-#         attention_mask = tf.keras.layers.Input(shape=(None,), dtype=tf.int32, name='attention_mask')
-
-#         # Get the pooled output from BERT
-#         pooled_output = self.bert_model({'input_ids': input_ids, 'attention_mask': attention_mask})[1]
-        
-#         # Pass the pooled output to the Dense layer
-#         output = tf.keras.layers.Dense(self.num_classes, activation='softmax')(pooled_output)
-
-#         # Create the model
-#         return tf.keras.Model(inputs={'input_ids': input_ids, 'attention_mask': attention_mask}, outputs=output)
-
-#     def preprocess_text(self, text):
-#         # Tokenize and preprocess the text
-#         tokens = self.tokenizer(text, padding=True, truncation=True, return_tensors="tf")
-#         return {
-#             'input_ids': tokens['input_ids'],
-#             'attention_mask': tokens['attention_mask']
-#         }
-
-#     def predict_emotion(self, text):
-#         # Preprocess the text
-#         inputs = self.preprocess_text(text)
-        
-#         # Perform prediction
-#         predictions = self.classifier(inputs, training=False)
-
-#         # Get the predicted class index
-#         predicted_class = tf.argmax(predictions, axis=1).numpy()[0]
-
-#         # Map class index to emotion label
-#         emotion_labels = ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
-#         predicted_emotion = emotion_labels[predicted_class]
-
-#         return predicted_emotion
-
 from transformers import TFAutoModelForSequenceClassification, AutoTokenizer
 
 loaded_model = TFAutoModelForSequenceClassification.from_pretrained('emotion_model')
