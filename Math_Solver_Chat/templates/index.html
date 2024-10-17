@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Problem Solver & Data Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            margin-top: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+        }
+        .result {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Problem Solver & Data Search</h1>
+        <form id="solve-form">
+            <label for="groq_api_key">Groq API Key:</label>
+            <input type="password" id="groq_api_key" placeholder="Enter your Groq API key" required />
+
+            <label for="question">Enter your math question:</label>
+            <textarea id="question" placeholder="Enter your question here..." required></textarea>
+
+            <button type="submit">Get Answer</button>
+        </form>
+
+        <div id="result" class="result" style="display:none;">
+            <h2>Response:</h2>
+            <p id="response-text"></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('solve-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const groq_api_key = document.getElementById('groq_api_key').value;
+            const question = document.getElementById('question').value;
+
+            try {
+                const response = await fetch('/api/solve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ groq_api_key, question })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('response-text').innerText = data.response;
+                }
+            } catch (error) {
+                alert('Error: ' + error);
+            }
+        });
+    </script>
+</body>
+</html>
