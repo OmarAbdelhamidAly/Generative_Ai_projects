@@ -1,0 +1,1 @@
+{"input_dim": 768, "num_classes": 22, "num_heads": 64, "hidden_dim": 256, "num_layers": 6, "dropout": 0.7}
