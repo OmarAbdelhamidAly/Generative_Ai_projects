@@ -1,0 +1,65 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis</h1>
+    <p>Enter a sentence to classify as Positive or Negative:</p>
+
+    <textarea id="inputText" placeholder="Type something here..."></textarea><br>
+    <button onclick="analyzeSentiment()">Analyze</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function analyzeSentiment() {
+            const text = document.getElementById("inputText").value;
+            const resultDiv = document.getElementById("result");
+
+            resultDiv.textContent = "Analyzing...";
+
+            const response = await fetch("/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ texts: [text] })
+            });
+
+            if (!response.ok) {
+                resultDiv.textContent = "Error: " + (await response.text());
+                return;
+            }
+
+            const data = await response.json();
+            const prediction = data[0].prediction;
+            const confidence = (Math.max(...data[0].probabilities) * 100).toFixed(2);
+
+            resultDiv.textContent = `Prediction: ${prediction.toUpperCase()} (${confidence}% confidence)`;
+        }
+    </script>
+</body>
+</html>

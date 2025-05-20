@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat QnA Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 700px;
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .answer {
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ask Your Question</h1>
+
+<form id="qna-form">
+    <label for="question">Enter your question:</label>
+    <textarea id="question" required></textarea>
+    <button type="submit">Get Answer</button>
+</form>
+
+<div id="response" class="answer" style="display:none;"></div>
+<div id="error" class="error"></div>
+
+<script>
+document.getElementById('qna-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const question = document.getElementById('question').value.trim();
+    const responseDiv = document.getElementById('response');
+    const errorDiv = document.getElementById('error');
+
+    responseDiv.style.display = 'none';
+    errorDiv.textContent = '';
+
+    if (!question) {
+        errorDiv.textContent = 'Please enter a question.';
+        return;
+    }
+
+    try {
+        const res = await fetch('http://localhost:5002/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            responseDiv.textContent = data.answer || "No answer received.";
+            responseDiv.style.display = 'block';
+        } else {
+            errorDiv.textContent = data.error || "Something went wrong.";
+        }
+    } catch (err) {
+        errorDiv.textContent = 'Error connecting to server.';
+        console.error(err);
+    }
+});
+</script>
+
+</body>
+</html>
