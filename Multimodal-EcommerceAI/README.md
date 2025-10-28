@@ -1,164 +1,89 @@
-# Multimodal E-commerce AI Platform
+# 🛍️ E-Commerce AI Assistant
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-1.9+-ee4c2c)](https://pytorch.org/)
-[![Transformers](https://img.shields.io/badge/🤗%20Transformers-4.20+-ffcc00)](https://huggingface.co/transformers/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-1.9+-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Transformers-4.20+-FFD21F)](https://huggingface.co/transformers/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
 
-## 🚀 Overview
+> **Note**: This is a research project demonstrating AI-powered e-commerce assistance. For production use, additional testing and optimization are recommended.
 
-Multimodal E-commerce AI is a state-of-the-art platform that revolutionizes e-commerce interactions through advanced natural language processing and deep learning. This enterprise-grade solution combines multiple AI models to deliver accurate, context-aware responses to customer queries and enable powerful semantic product search capabilities.
+## 🚀 Project Overview
 
-## ✨ Key Features
+E-Commerce AI Assistant is an intelligent system designed to enhance online shopping experiences through natural language understanding. It combines advanced NLP techniques with deep learning to provide accurate product information and answer customer queries in real-time.
 
-### 🤖 Intelligent Question Answering
-- **Dual-Encoder Architecture**: Advanced neural architecture for semantic matching of questions and answers
-- **Multi-Model Ensemble**: Combines extractive and generative AI models for comprehensive responses
-- **Context-Aware Responses**: Understands and maintains conversation context for natural interactions
+### Key Capabilities
 
-### 🔍 Semantic Product Search
-- **Vector Similarity Search**: FAISS-powered ultra-fast similarity matching
-- **Multilingual Support**: Built on `paraphrase-multilingual-MiniLM-L12-v2` for global reach
-- **Category-Aware Filtering**: Precise filtering across multiple product categories
+🛒 **Smart Product Search**  
+Find products using natural language queries instead of keywords
 
-### 🏗️ Advanced Architecture
-- **Model Optimization**: Implements LoRA and 4-bit quantization for efficient inference
-- **Workflow Management with LangGraph**:
-  - Stateful conversation management for complex QA workflows
-  - Directed acyclic graph (DAG) based processing pipeline
-  - Nodes for question improvement, retrieval, and answer generation
-  - Type-safe state management with `QAState`
-- **Scalable Design**: Modular architecture for easy integration and scaling
-- **Production-Ready**: Includes REST API endpoints and web interface
+❓ **Instant Q&A**  
+Get accurate answers to product-related questions
+
+🔍 **Semantic Understanding**  
+Understands customer intent beyond simple keyword matching
+
+💡 **Context-Aware**  
+Maintains conversation context for more natural interactions
+
+## 🛠️ Core Components
+
+### 1. Question Answering System
+- **Dual-Encoder Model**: Matches user questions with relevant answers using semantic similarity
+- **Two-Phase Processing**:
+  1. **Retrieval**: Finds most relevant answers from the knowledge base
+  2. **Generation**: Generates natural-sounding responses
+
+### 2. Product Search Engine
+- **Vector Similarity Search**: Powered by FAISS for fast retrieval
+- **Category-Based Filtering**: Narrow down results by product categories
+- **Multilingual Support**: Understands queries in multiple languages
+
+### 3. Workflow Management
+- **Stateful Processing**: Tracks conversation context
+- **Modular Design**: Easy to extend with new features
+- **Error Handling**: Graceful degradation when needed
 
 ## 🛠 Technical Stack
 
 ### Core Technologies
-- **Backend**: Python 3.8+, PyTorch, Transformers
-- **Vector Database**: FAISS (Facebook AI Similarity Search)
-- **Web Framework**: Flask
-- **Model Serving**: ONNX Runtime (optional)
+| Component | Technology |
+|-----------|------------|
+| Language | Python 3.8+ |
+| ML Framework | PyTorch |
+| NLP | 🤗 Transformers |
+| Vector Search | FAISS |
+| Web Framework | Flask |
+| API Documentation | Swagger/OpenAPI |
 
-### AI/ML Components
-- **Dual-Encoder Models**: Custom transformer-based architecture
-- **Pre-trained Models**:
-  - `sentence-transformers/all-MiniLM-L6-v2`
-  - `distilbert/distilbert-base-cased-distilled-squad`
-  - `google/flan-t5-base`
-- **Efficient Training**: LoRA for parameter-efficient fine-tuning
+### AI Models
+| Model | Purpose |
+|-------|---------|
+| `sentence-transformers/all-MiniLM-L6-v2` | Text embeddings |
+| `distilbert-base-cased-distilled-squad` | Question answering |
+| `google/flan-t5-base` | Response generation |
 
-## 📊 Performance Metrics
+### Performance
+- **Response Time**: Typically under 1 second
+- **Accuracy**: Improves with more training data
+- **Scalability**: Designed to handle multiple concurrent users
 
-- **Retrieval Accuracy**:
-  - Top-1 Accuracy: 5.7%
-  - Top-5 Accuracy: 14.8%
-  - *Note: Accuracy can be further improved with additional training data*
-
-- **Inference Speed**:
-  - <100ms response time for typical queries
-  - Batch processing support for high-throughput scenarios
-
-## 🔄 Workflow Architecture
-
-### LangGraph Implementation
-
-```mermaid
-graph TD
-    A[User Question] --> B[Question Improvement Node]
-    B --> C[Improved Question]
-    C --> D[Dual-Encoder Retrieval Node]
-    D --> E[Top-k Relevant Answers]
-    E --> F[Answer Generation Node]
-    F --> G[Final Response]
-    G --> H[User]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
-    style E fill:#f9f,stroke:#333,stroke-width:2px
-    style F fill:#bbf,stroke:#333,stroke-width:2px
-    style G fill:#9f9,stroke:#333,stroke-width:2px
-    style H fill:#f9f,stroke:#333,stroke-width:2px
-```
-
-### Workflow Components
-
-#### 1. Question Improvement Node
-- **Purpose**: Refines and clarifies user queries
-- **Process**:
-  1. Receives raw user question
-  2. Uses LLM to rephrase for better retrieval
-  3. Handles ambiguities and adds context
-  4. Outputs optimized question
-- **Example**:
-  - Input: "How fix phone not charging?"
-  - Output: "What are the troubleshooting steps for a smartphone that won't charge?"
-
-#### 2. Dual-Encoder Retrieval Node
-- **Purpose**: Finds most relevant answers
-- **Process**:
-  1. Encodes improved question into embedding space
-  2. Performs approximate nearest neighbor search using FAISS
-  3. Retrieves top-k most similar answers
-  4. Ranks results by semantic similarity
-- **Technical Details**:
-  - Uses pre-computed answer embeddings
-  - Implements efficient vector search
-  - Supports batch processing for multiple queries
-
-#### 3. Answer Generation Node
-- **Purpose**: Creates natural, helpful responses
-- **Process**:
-  1. Takes top retrieved answers as context
-  2. Uses LLM to generate coherent response
-  3. Applies safety and quality filters
-  4. Formats output for user presentation
-- **Features**:
-  - Context-aware generation
-  - Citation of sources
-  - Fallback mechanisms for low-confidence answers
-
-### State Management
-- **QAState**: Type-safe state container with:
-  ```python
-  {
-      'question': str,                    # Original user question
-      'improved_question': str,          # Enhanced question
-      'dual_encoder_answers': List[Dict], # Retrieved answers
-      'final_answer': str                # Generated response
-  }
-  ```
-- **Error Handling**: Graceful degradation and fallbacks
-- **Context Preservation**: Maintains conversation history
-
-### Performance Optimization
-- **Caching**: Memoization of common queries
-- **Parallel Processing**: Concurrent execution of independent nodes
-- **Early Termination**: Skips unnecessary processing when possible
-
-### Error Recovery
-- **Fallback Mechanisms**:
-  - Direct retrieval if question improvement fails
-  - Generic responses for low-confidence answers
-  - Context-aware error messages
-
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8 or higher
-- CUDA-compatible GPU (recommended)
 - pip package manager
+- (Optional) CUDA-compatible GPU for faster inference
 
 ### Installation
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/multimodal-ecommerce-ai.git
-cd multimodal-ecommerce-ai
+git clone https://github.com/yourusername/ecommerce-ai-assistant.git
+cd ecommerce-ai-assistant
 ```
 
-2. **Create and activate virtual environment**
+2. **Set up virtual environment**
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -169,16 +94,50 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Configuration
-
-1. **Set up environment variables**
-Create a `.env` file in the project root:
+4. **Set up environment variables**
+Create a `.env` file:
 ```env
 GROQ_API_KEY=your_groq_api_key
 LANGCHAIN_API_KEY=your_langchain_api_key
 ```
 
-## 🏃‍♂️ Running the Application
+## 🏗 System Architecture
+
+### Workflow Overview
+
+```mermaid
+graph LR
+    A[User Question] --> B{Question Improvement}
+    B -->|Improved| C[Retrieve Answers]
+    C --> D[Generate Response]
+    D --> E[Final Answer]
+    
+    style A fill:#e1f5fe,stroke:#0288d1
+    style B fill:#e8f5e9,stroke:#388e3c
+    style C fill:#fff3e0,stroke:#f57c00
+    style D fill:#f3e5f5,stroke:#8e24aa
+    style E fill:#e8f5e9,stroke:#2e7d32
+```
+
+### 1. Question Processing
+- **Input**: Raw user question (e.g., "phone not charging")
+- **Processing**:
+  - Removes noise and normalizes text
+  - Identifies key entities and intents
+  - Rewrites for clarity if needed
+- **Output**: Clean, structured query
+
+### 2. Answer Retrieval
+- **Search**: Finds most relevant product information
+- **Ranking**: Sorts by relevance to the query
+- **Filtering**: Applies category and other filters
+
+### 3. Response Generation
+- **Context Integration**: Combines query context with product data
+- **Natural Language Generation**: Creates human-like responses
+- **Formatting**: Structures the response for clarity
+
+## 🚀 Running the Application
 
 ### Start the QA Service
 ```bash
@@ -192,90 +151,78 @@ python search.py
 
 Access the web interface at `http://localhost:5000`
 
-## 📚 Documentation
+## 📚 API Documentation
 
-### Workflow Execution
+### Chat/Q&A Endpoint
+```http
+POST /api/ask
+Content-Type: application/json
 
-#### Basic Usage
-```python
-# Import required components
-from langgraph.graph import StateGraph
-from typing import TypedDict, List, Dict, Any
-
-# Define the state structure
-class QAState(TypedDict):
-    question: str
-    improved_question: str
-    dual_encoder_answers: List[Dict[str, Any]]
-    final_answer: str
-
-# Initialize the workflow
-response = qa_graph.invoke({
+{
     "question": "How do I reset my device?",
-    "improved_question": "",
-    "dual_encoder_answers": [],
-    "final_answer": ""
-})
-
-# Access the final response
-print(f"Answer: {response['final_answer']}")
-
-# Access intermediate results
-print(f"Improved question: {response['improved_question']}")
-print(f"Retrieved answers: {len(response['dual_encoder_answers'])}")
+    "conversation_id": "optional-session-id"
+}
 ```
 
-#### Advanced Usage with Custom Configuration
+### Search Endpoint
+```http
+GET /api/search?q=wireless+earbuds&category=electronics
+```
+
+## 🧩 Example Usage
+
+### Basic Question Answering
 ```python
-# Customize the workflow behavior
-custom_graph = StateGraph(state_schema=QAState)
+from chat_qna import answer_natural_question
 
-# Add nodes with custom configurations
-custom_graph.add_node(
-    "ImproveQuestion",
-    RunnableLambda(improve_question_func, 
-                 config={"max_retries": 3, "timeout": 30})
-)
-
-# Set up custom edges and conditions
-def should_retrieve(state):
-    return len(state["improved_question"]) > 0
-
-custom_graph.add_conditional_edges(
-    "ImproveQuestion",
-    should_retrieve,
-    {
-        True: "RetrieveDualEncoder",
-        False: "FallbackRetrieval"
-    }
-)
-
-# Compile and run
-auto_fallback_graph = custom_graph.compile()
+response = answer_natural_question("How do I reset my device?")
+print(response["generated_answer"])
 ```
 
-#### Monitoring and Debugging
+### Product Search
 ```python
-# Enable debug logging
-import logging
-logging.basicConfig(level=logging.DEBUG)
+from search import get_recommendations
 
-# Get execution trace
-trace = qa_graph.trace({
-    "question": "Troubleshoot no sound",
-    "improved_question": "",
-    "dual_encoder_answers": [],
-    "final_answer": ""
-})
-
-# Inspect node execution details
-for node_name, node_result in trace.items():
-    print(f"Node: {node_name}")
-    print(f"Status: {node_result['status']}")
-    print(f"Duration: {node_result['duration']}s")
-    if 'error' in node_result:
-        print(f"Error: {node_result['error']}")
+results = get_recommendations("wireless earbuds", "electronics", top_k=5)
+print(results[["name", "price", "rating"]].head())
 ```
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. **Report Bugs**: Open an issue with detailed steps to reproduce
+2. **Suggest Features**: Share your ideas for improvement
+3. **Submit Code**: Follow our coding standards and submit a pull request
+
+### Development Setup
+
+1. Install development dependencies:
+```bash
+pip install -r requirements-dev.txt
+```
+
+2. Run tests:
+```bash
+pytest tests/
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Hugging Face](https://huggingface.co/) for the Transformers library
+- [FAISS](https://github.com/facebookresearch/faiss) for efficient similarity search
+- The open-source community for invaluable tools and libraries
+
+---
+
+<div align="center">
+  <h3>Built with ❤️ for better e-commerce experiences</h3>
+  <p>Making online shopping smarter, one query at a time</p>
+</div>
 
 ### API Endpoints
 
